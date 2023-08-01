@@ -24,13 +24,13 @@ const Header = () => {
   };
 
   return (
-    <header className={`${styles.header}`}>
+    <div className={`${styles.header}`}>
       <h1 className={styles.headerSize}>
         <Link href={"/"} className={styles.a}>
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
           Nana's Memories
         </Link>
       </h1>
-
       <div className={styles.keepRight}>
         {navbarStatus === false ? (
           <div className={`${styles.menuBtn}`}>
@@ -49,7 +49,6 @@ const Header = () => {
           </div>
         )}
       </div>
-
       <div className={styles.sideNav}>
         <ul
           className={`${styles.menuNav} ${
@@ -94,7 +93,7 @@ const Header = () => {
           </Link>
         </ul>
       </div>
-    </header>
+    </div>
   );
 };
 
