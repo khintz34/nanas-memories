@@ -13,9 +13,14 @@ export default function Memory(props: any) {
         />
       </div>
       <div className={`${styles.divMain} ${styles.info}`}>
-        <h2 className={styles.h2}>
-          {props.title} · {props.year}
-        </h2>
+        {props.year === "" ? (
+          <h2 className={styles.h2}>{props.title}</h2>
+        ) : (
+          <h2 className={styles.h2}>
+            {props.title} · {props.year}
+          </h2>
+        )}
+
         <div className={styles.desc}>{props.description}</div>
       </div>
     </main>

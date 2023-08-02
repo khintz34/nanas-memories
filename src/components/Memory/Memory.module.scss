@@ -19,3 +19,21 @@
   justify-content: flex-start;
   align-items: center;
 }
+
+@media (max-width: 700px) {
+  .main {
+    flex-direction: column-reverse;
+    gap: 5vw;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .divMain {
+    width: 90vw;
+  }
+
+  .info {
+    width: 90vw;
+  }
+}
