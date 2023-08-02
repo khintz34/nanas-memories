@@ -1,0 +1,21 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  gap: 5vw;
+  border-bottom: 2px solid white;
+  padding-bottom: 4vh;
+}
+
+.divMain {
+  width: 45vw;
+  display: flex;
+  justify-content: center;
+  gap: 2vh;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
