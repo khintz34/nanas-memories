@@ -58,7 +58,7 @@ const Header = () => {
           <Link
             href={"/"}
             className="whiteFont"
-            style={{ backgroundColor: "white" }}
+            style={{ backgroundColor: "var(--secondary-color)" }}
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -70,7 +70,7 @@ const Header = () => {
           <Link
             href={"/FAQ"}
             className=" whiteFont"
-            style={{ backgroundColor: "white" }}
+            style={{ backgroundColor: "var(--secondary-color)" }}
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -82,7 +82,7 @@ const Header = () => {
           <Link
             className=" whiteFont"
             href={"/Resources"}
-            style={{ backgroundColor: "white" }}
+            style={{ backgroundColor: "var(--secondary-color)" }}
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
