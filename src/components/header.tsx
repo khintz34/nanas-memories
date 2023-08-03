@@ -58,37 +58,46 @@ const Header = () => {
           <Link
             href={"/"}
             className="whiteFont"
-            style={{ backgroundColor: "var(--secondary-color)" }}
+            style={{
+              backgroundColor: "var(--secondary-color)",
+              textDecoration: "none",
+            }}
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
               onClick={closeMenu}
             >
-              Calculator
+              Home
             </li>
           </Link>
           <Link
-            href={"/FAQ"}
+            href={"/About"}
             className=" whiteFont"
-            style={{ backgroundColor: "var(--secondary-color)" }}
+            style={{
+              backgroundColor: "var(--secondary-color)",
+              textDecoration: "none",
+            }}
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
               onClick={closeMenu}
             >
-              FAQs
+              About
             </li>
           </Link>
           <Link
             className=" whiteFont"
-            href={"/Resources"}
-            style={{ backgroundColor: "var(--secondary-color)" }}
+            href={"/FamilyTree"}
+            style={{
+              backgroundColor: "var(--secondary-color)",
+              textDecoration: "none",
+            }}
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
               onClick={closeMenu}
             >
-              Resources
+              Family Tree
             </li>
           </Link>
         </ul>

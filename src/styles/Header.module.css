@@ -19,6 +19,10 @@
   background-color: var(--secondary-background);
 }
 
+.headerBtn {
+  text-decoration: none;
+}
+
 .a {
   text-decoration: none;
   background-color: var(--secondary-background);
@@ -47,6 +51,10 @@
 .whiteFont {
   color: white;
   background-color: var(--secondary-background);
+  text-decoration: none;
+}
+
+.whiteFont li {
   text-decoration: none;
 }
 
@@ -94,6 +102,10 @@
   background-color: var(--secondary-background);
 }
 
+.menuBtn:hover {
+  cursor: pointer;
+}
+
 .menuItem {
   font-size: 2.2vh;
   padding-bottom: 2vh;
@@ -109,6 +121,7 @@
   color: white;
   background-color: #999;
   font-weight: 700;
+  text-decoration: none;
 }
 
 .menuItem:hover {
@@ -126,6 +139,10 @@
   border-radius: 50%;
   height: 2vw;
   width: 2vw;
+}
+
+.xBtnContainer:hover {
+  cursor: pointer;
 }
 
 #signUp-btn2 {
