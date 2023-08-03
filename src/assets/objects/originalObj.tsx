@@ -1,7 +1,6 @@
 export interface Memory {
-  name: string;
+  title: string;
   tags: Array<string>;
   year: number;
   description: string;
-  pic: File;
 }

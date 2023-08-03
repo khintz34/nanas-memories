@@ -6,6 +6,12 @@
   padding-bottom: 4vh;
 }
 
+.imageContainer {
+  width: 30vw;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .divMain {
   width: 45vw;
   display: flex;
@@ -35,5 +41,10 @@
 
   .info {
     width: 90vw;
+  }
+
+  .imageContainer {
+    width: 90vw;
+    justify-content: center;
   }
 }

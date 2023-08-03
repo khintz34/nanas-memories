@@ -100,6 +100,21 @@ const Header = () => {
               Family Tree
             </li>
           </Link>
+          <Link
+            className=" whiteFont"
+            href={"/AddMemory"}
+            style={{
+              backgroundColor: "var(--secondary-color)",
+              textDecoration: "none",
+            }}
+          >
+            <li
+              className={`${styles.headerBtn} ${styles.menuItem}`}
+              onClick={closeMenu}
+            >
+              Add a Memory
+            </li>
+          </Link>
         </ul>
       </div>
     </div>

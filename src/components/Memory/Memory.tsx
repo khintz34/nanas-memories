@@ -4,7 +4,7 @@ import styles from "../Memory/Memory.module.scss";
 export default function Memory(props: any) {
   return (
     <main className={styles.main}>
-      <div className={styles.divMain}>
+      <div className={styles.imageContainer}>
         <Image
           height={250}
           width={325}

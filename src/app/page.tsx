@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
 import orch from "../assets/images/orch.jpeg";
@@ -6,8 +8,13 @@ import farm from "../assets/images/farm.jpeg";
 import santa from "../assets/images/santa.jpeg";
 import walter from "../assets/images/walter.jpeg";
 import Memory from "@/components/Memory/Memory";
+import { Memory as memObj } from "../assets/objects/originalObj";
+import { ref as databaseRef, onValue } from "firebase/database";
+import { db } from "../assets/firebase/firebase";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [memoryList, setMemoryList] = useState<Array<memObj>>();
   // const testingMemory = {
   //   name: "Testing File",
   //   tags: ["Lucille", "Bill", "Sandy", "Jim", "Paul"],
@@ -15,6 +22,51 @@ export default function Home() {
   //   description: "This is a test desciption",
   //   pic: { testImg },
   // };
+
+  //   const starCountRef = ref(db, 'posts/' + "The Farm" + '/starCount');
+  //   onValue(starCountRef, (snapshot) => {
+  //   const data = snapshot.val();
+  //   updateStarCount(postElement, data);
+  // });
+
+  //todo add memoires to firebase
+  //todo change map to memory
+  //todo fix spacing on images (Image component)
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  async function getUserData() {
+    const boardRef = databaseRef(db, "Memories/");
+    let displayArray: Array<memObj> = [];
+    await onValue(
+      boardRef,
+      (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const childKey = childSnapShot.key;
+          const childData = childSnapShot.val();
+          let obj = {
+            title: childData.title,
+            image: childData.image,
+            tags: childData.tags,
+            description: childData.description,
+            year: childData.year,
+          };
+          addData(obj);
+        });
+      },
+      {
+        onlyOnce: false,
+      }
+    );
+
+    function addData(obj: memObj) {
+      displayArray.push(obj);
+      setMemoryList(displayArray);
+      console.log(displayArray);
+    }
+  }
 
   return (
     <main className={styles.main}>
@@ -41,7 +93,7 @@ export default function Home() {
       />
       <Memory
         pic={santa}
-        description="My brother Jim in '57. Do you recognize the visitor in the living room?"
+        description="Jim in '57. Do you recognize the visitor in the living room?"
         title="The Infamous Santa"
         year="1957"
         tags={["Jim"]}
@@ -53,6 +105,16 @@ export default function Home() {
         year=""
         tags={["Bill"]}
       />
+
+      {/* {memoryList?.map((val, index) => {
+        console.log(val.title);
+        return (
+          <div key={val.title}>
+            {val.title}
+            {val.description}
+          </div>
+        );
+      })} */}
     </main>
   );
 }
