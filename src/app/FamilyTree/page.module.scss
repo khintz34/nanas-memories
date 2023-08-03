@@ -8,3 +8,9 @@
   background-color: var(--primary-background);
   gap: 4vh;
 }
+
+@media (max-width: 700px) {
+  .main {
+    padding: 12vh 0;
+  }
+}
