@@ -8,8 +8,11 @@
 
 .imageContainer {
   width: 30vw;
+  height: 40vh;
   display: flex;
   justify-content: flex-start;
+  overflow: hidden;
+  object-fit: fill;
 }
 
 .divMain {

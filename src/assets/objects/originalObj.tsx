@@ -3,4 +3,6 @@ export interface Memory {
   tags: Array<string>;
   year: number;
   description: string;
+  url: string;
+  image: any;
 }
