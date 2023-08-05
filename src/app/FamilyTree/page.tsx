@@ -8,15 +8,15 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [mobile, setMobile] = useState(false);
 
-  // useEffect(() => {
-  if (typeof window !== "undefined") {
-    if (window.innerWidth > 700) {
-      setMobile(false);
-    } else {
-      setMobile(true);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (window.innerWidth > 700) {
+        setMobile(false);
+      } else {
+        setMobile(true);
+      }
     }
-  }
-  // }, []);
+  }, []);
 
   return (
     <main className={styles.main}>
