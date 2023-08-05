@@ -60,29 +60,15 @@ export default function Home() {
     );
 
     function addData(obj: memObj) {
-      console.log("adding: ", obj);
       displayArray.push(obj);
-      setMemoryList(displayArray);
+      setMemoryList([...displayArray]);
     }
   }
 
-  useEffect(() => {
-    console.log("List", memoryList);
-  }, [memoryList]);
-
   return (
     <main className={styles.main}>
-      {/* <Memory
-        pic={orch}
-        description="Nana's high school orchestra. She is in the 3rd row from the right, the 4th girl up. She played the viola."
-        title="Orchestra Concert"
-        year=""
-        tags={["Nana"]}
-        /> */}
-
       {typeof memoryList !== "undefined" ? (
         memoryList.map((val, index) => {
-          console.log(index, val.title);
           return (
             <Memory
               key={val.title}
