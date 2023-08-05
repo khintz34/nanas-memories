@@ -28,7 +28,7 @@ export default function Home() {
   async function getUserData() {
     const boardRef = databaseRef(db, "Memories/");
     let displayArray: Array<memObj> = [];
-    await onValue(
+    onValue(
       boardRef,
       (snapshot) => {
         snapshot.forEach((childSnapShot) => {
@@ -48,7 +48,6 @@ export default function Home() {
 
           const fetchData = async () => {
             const result = await getDownloadURL(specRef);
-            console.log(result);
             obj.image = result;
             addData(obj);
           };
@@ -61,11 +60,15 @@ export default function Home() {
     );
 
     function addData(obj: memObj) {
+      console.log("adding: ", obj);
       displayArray.push(obj);
       setMemoryList(displayArray);
-      console.log(displayArray);
     }
   }
+
+  useEffect(() => {
+    console.log("List", memoryList);
+  }, [memoryList]);
 
   return (
     <main className={styles.main}>
@@ -77,19 +80,23 @@ export default function Home() {
         tags={["Nana"]}
         /> */}
 
-      {memoryList?.map((val, index) => {
-        console.log(val.image);
-        return (
-          <Memory
-            key={val.title}
-            pic={val.image}
-            description={val.description}
-            title={val.title}
-            year={val.year}
-            tags={val.tags}
-          />
-        );
-      })}
+      {typeof memoryList !== "undefined" ? (
+        memoryList.map((val, index) => {
+          console.log(index, val.title);
+          return (
+            <Memory
+              key={val.title}
+              pic={val.image}
+              description={val.description}
+              title={val.title}
+              year={val.year}
+              tags={val.tags}
+            />
+          );
+        })
+      ) : (
+        <div>Loading</div>
+      )}
     </main>
   );
 }
