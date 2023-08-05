@@ -14,8 +14,6 @@ import { db } from "../assets/firebase/firebase";
 import { useState, useEffect } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
-//todo add memoires to firebase
-//todo change map to memory
 //todo fix spacing on images (Image component)
 
 export default function Home() {
