@@ -9,13 +9,13 @@ export default function Home() {
   const [mobile, setMobile] = useState(false);
 
   // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     if (window.innerWidth > 700) {
-  //       setMobile(false);
-  //     } else {
-  //       setMobile(true);
-  //     }
-  //   }
+  if (typeof window !== "undefined") {
+    if (window.innerWidth > 700) {
+      setMobile(false);
+    } else {
+      setMobile(true);
+    }
+  }
   // }, []);
 
   return (
