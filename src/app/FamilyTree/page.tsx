@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <h2>Nana's Family Tree</h2>
+      <h2>Nana&apos;s Family Tree</h2>
 
       {mobile ? (
         // <Image height={250} width={400} src={tree} alt="Nana's Family Tree" />
