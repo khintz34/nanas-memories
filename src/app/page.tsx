@@ -14,7 +14,7 @@ import { db } from "../assets/firebase/firebase";
 import { useState, useEffect } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
-//todo fix spacing on images (Image component)
+//todo fix spacing on images (Image component) instead of img
 
 export default function Home() {
   const [memoryList, setMemoryList] = useState<Array<memObj>>();

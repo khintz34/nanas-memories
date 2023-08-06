@@ -31,24 +31,9 @@ const Header = () => {
           Nana's Memories
         </Link>
       </h1>
-      <div className={styles.keepRight}>
-        {navbarStatus === false ? (
-          <div className={`${styles.menuBtn}`}>
-            <GiHamburgerMenu
-              onClick={handleToggle}
-              // style={{ backgroundColor: "var(--secondaryBackground)" }}
-            />
-          </div>
-        ) : (
-          <div onClick={handleToggle} className={`${styles.xBtnContainer}`}>
-            <div
-              className={`${styles.iconWidth} ${styles.openBtn} ${styles.xBtn}`}
-            >
-              X
-            </div>
-          </div>
-        )}
-      </div>
+      <label className={`${styles.hamburgerMenu}`}>
+        <input type="checkbox" onClick={handleToggle} />
+      </label>
       <div className={styles.sideNav}>
         <ul
           className={`${styles.menuNav} ${

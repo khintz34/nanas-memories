@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import Member from "@/components/Member/Member";
 
-// todo create member comp
-
 export default function Home() {
   const [mobile, setMobile] = useState(false);
   const [down, setDown] = useState(true);
@@ -39,15 +37,7 @@ export default function Home() {
       <h2>Nana&apos;s Family Tree</h2>
 
       {mobile ? (
-        // <Image height={250} width={400} src={tree} alt="Nana's Family Tree" />
         <div className={styles.treeMain}>
-          <Member
-            relationship="Parents"
-            people={[
-              { name: "Esther Zoschke", rel: "Mom" },
-              { name: "Wilhelm Zoschke", rel: "Dad" },
-            ]}
-          />
           <Member
             relationship="Grandparents"
             people={[
@@ -55,6 +45,13 @@ export default function Home() {
               { name: "Henrietta Kroggel", rel: "Grandma  - Paternal" },
               { name: "Charles Wilhelm", rel: "Grandpa  - Maternal" },
               { name: "Bertha Neitzel", rel: "Grandma  - Maternal" },
+            ]}
+          />
+          <Member
+            relationship="Parents"
+            people={[
+              { name: "Esther Zoschke", rel: "Mom" },
+              { name: "Wilhelm Zoschke", rel: "Dad" },
             ]}
           />
           <Member
@@ -77,9 +74,9 @@ export default function Home() {
                 name: "Margareta Zoschke (Arthur Tetzlaff)",
                 rel: "Aunt - Paternal",
               },
-              { name: "Anna Zoschke", rel: "Aunt - Maternal" },
-              { name: "Bertha Zoschke", rel: "Aunt - Maternal" },
-              { name: "Ella Zoschke", rel: "Aunt - Maternal" },
+              { name: "Anna Wilhelm", rel: "Aunt - Maternal" },
+              { name: "Bertha Wilhelm", rel: "Aunt - Maternal" },
+              { name: "Ella Wilhelm", rel: "Aunt - Maternal" },
             ]}
           />
           <Member

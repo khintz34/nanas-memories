@@ -6,6 +6,15 @@
   --primary-background: #1d2d44;
   --primary-font: #f0ebd8;
   --secondary-background: #748cab;
+  --bar-width: 30px;
+  --bar-height: 4px;
+  --hamburger-gap: 6px;
+  --foreground: var(--primary-font);
+  --background: var(--primary-background);
+  --hamburger-margin: 3.5vh;
+  --hamburger-margin-left: 90vw;
+  --animation-timing: 200ms ease-in-out;
+  --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
 }
 
 * {
