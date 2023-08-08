@@ -6,9 +6,9 @@
   --primary-background: #1d2d44;
   --primary-font: #f0ebd8;
   --secondary-background: #748cab;
-  --bar-width: 30px;
-  --bar-height: 4px;
-  --hamburger-gap: 6px;
+  --bar-width: 25px;
+  --bar-height: 3px;
+  --hamburger-gap: 5px;
   --foreground: var(--primary-font);
   --background: var(--primary-background);
   --hamburger-margin: 3.5vh;

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import styles from "../styles/Header.module.css";
 import Link from "next/link";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -10,6 +10,7 @@ import { useNavbarStore } from "@/stores/navbarStore";
 const Header = () => {
   const navbarStatus = useNavbarStore((state) => state.navbarStatus);
   const changeStatus = useNavbarStore((state) => state.changeStatus);
+  const checkRef = useRef<HTMLInputElement>(null);
 
   const handleToggle = () => {
     if (navbarStatus === true) {
@@ -20,6 +21,7 @@ const Header = () => {
   };
 
   const closeMenu = () => {
+    checkRef.current!.checked = false;
     changeStatus(false);
   };
 
@@ -32,7 +34,7 @@ const Header = () => {
         </Link>
       </h1>
       <label className={`${styles.hamburgerMenu}`}>
-        <input type="checkbox" onClick={handleToggle} />
+        <input type="checkbox" onClick={handleToggle} ref={checkRef} />
       </label>
       <div className={styles.sideNav}>
         <ul
