@@ -37,6 +37,10 @@
   color: black;
 }
 
+.btn {
+  background-color: var(--secondary-background);
+}
+
 @media (max-width: 600px) {
   .form {
     width: 95vw;

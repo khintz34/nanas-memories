@@ -7,13 +7,14 @@ import { ref as ref2, uploadBytes } from "firebase/storage";
 import { storage } from "../../assets/firebase/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
 import { db } from "../../assets/firebase/firebase";
+import { JSDocNullableType, NumberLiteralType } from "typescript";
 
 export default function Home() {
   const [memUrl, setMemUrl] = useState<string>();
   const [memImage, setMemImage] = useState<any>(null);
   const [memName, setMemName] = useState<string>();
   const [memTags, setMemTags] = useState<string>();
-  const [memYear, setMemYear] = useState<string>();
+  const [memYear, setMemYear] = useState<string | null>(null);
   const [memDesc, setMemDesc] = useState<string>();
 
   const handleImage = (e: any) => {
@@ -34,9 +35,6 @@ export default function Home() {
 
   function writeUserData(e: any) {
     e.preventDefault();
-    // const reference = ref(db, "Memories/");
-
-    // const newItem = push(reference);
 
     const database = getDatabase();
     set(ref(database, "Memories/" + memName), {
@@ -52,14 +50,6 @@ export default function Home() {
       .catch((error) => {
         console.log(error);
       });
-
-    // set(newItem, {
-    //   title: memName,
-    //   description: memDesc,
-    //   year: memYear,
-    //   tags: memTags,
-    //   url: memUrl,
-    // });
 
     uploadImage();
   }
@@ -96,6 +86,7 @@ export default function Home() {
             id="memYear"
             onChange={(e) => setMemYear(e.target.value)}
             className={styles.input}
+            defaultValue=""
           />
         </div>
         <div className={styles.inputContainer}>
@@ -110,7 +101,11 @@ export default function Home() {
           <label htmlFor="memImg">Image</label>
           <input type="file" id="memImg" onChange={(e) => handleImage(e)} />
         </div>
-        <button type="submit" onClick={(e) => writeUserData(e)}>
+        <button
+          type="submit"
+          onClick={(e) => writeUserData(e)}
+          className={styles.btn}
+        >
           Upload Memory
         </button>
       </form>
