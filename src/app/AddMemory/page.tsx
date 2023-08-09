@@ -32,7 +32,7 @@ export default function Home() {
       });
   };
 
-  function writeUserData(e) {
+  function writeUserData(e: any) {
     e.preventDefault();
     // const reference = ref(db, "Memories/");
 

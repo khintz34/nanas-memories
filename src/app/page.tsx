@@ -16,6 +16,8 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 //todo fix spacing on images (Image component) instead of img
 
+//todo add all mems back
+
 export default function Home() {
   const [memoryList, setMemoryList] = useState<Array<memObj>>();
 
