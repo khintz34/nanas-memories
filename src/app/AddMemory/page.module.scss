@@ -25,11 +25,16 @@
   flex-direction: column;
   gap: 3vh;
   width: 50vw;
+  color: black;
 }
 
 .textArea {
   width: 40ch;
   height: 10ch;
+}
+
+.input {
+  color: black;
 }
 
 @media (max-width: 600px) {
