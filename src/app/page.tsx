@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 import Memory from "@/components/Memory/Memory";
 import { Memory as memObj } from "../assets/objects/originalObj";
 import { ref as databaseRef, onValue } from "firebase/database";
@@ -76,7 +76,18 @@ export default function Home() {
           );
         })
       ) : (
-        <div>Loading</div>
+        <div className={styles.center}>
+          <div className={styles.wave}></div>
+          <div className={styles.wave}></div>
+          <div className={styles.wave}></div>
+          <div className={styles.wave}></div>
+          <div className={styles.wave}></div>
+          <div className={styles.wave}></div>
+          <div className={styles.wave}></div>
+          <div className={styles.wave}></div>
+          <div className={styles.wave}></div>
+          <div className={styles.wave}></div>
+        </div>
       )}
     </main>
   );
