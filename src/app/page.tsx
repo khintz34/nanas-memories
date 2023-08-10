@@ -2,11 +2,6 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import orch from "../assets/images/orch.jpeg";
-import christening from "../assets/images/christening.jpeg";
-import farm from "../assets/images/farm.jpeg";
-import santa from "../assets/images/santa.jpeg";
-import walter from "../assets/images/walter.jpeg";
 import Memory from "@/components/Memory/Memory";
 import { Memory as memObj } from "../assets/objects/originalObj";
 import { ref as databaseRef, onValue } from "firebase/database";
@@ -16,7 +11,7 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 //todo fix spacing on images (Image component) instead of img
 
-//todo add all mems back
+//todo add loading function
 
 export default function Home() {
   const [memoryList, setMemoryList] = useState<Array<memObj>>();

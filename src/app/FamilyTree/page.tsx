@@ -88,7 +88,7 @@ export default function Home() {
             ]}
           />
           <Member
-            relationship="Granchildren"
+            relationship="Grandchildren"
             people={[
               { name: "Alex Hintz (Melissa Clark)", rel: "Grandson" },
               { name: "Kevin Hintz (Hadley Cookson)", rel: "Grandson" },
@@ -96,7 +96,7 @@ export default function Home() {
             ]}
           />
           <Member
-            relationship="Great Granchildren"
+            relationship="Great Grandchildren"
             people={[
               { name: "Ella Hintz (Alex/Melissa)", rel: "Great Granddaughter" },
               { name: "Beckham Hintz (Kevin/Hadley)", rel: "Great Grandson" },

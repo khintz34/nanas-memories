@@ -7,7 +7,8 @@ import { ref as ref2, uploadBytes } from "firebase/storage";
 import { storage } from "../../assets/firebase/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
 import { db } from "../../assets/firebase/firebase";
-import { JSDocNullableType, NumberLiteralType } from "typescript";
+
+//todo add maxmimum character lengths
 
 export default function Home() {
   const [memUrl, setMemUrl] = useState<string>("");
@@ -28,23 +29,14 @@ export default function Home() {
     setMemStatusStyles(`${styles.hide}`);
   };
 
-  //todo fix these erros
-
   const uploadImage = () => {
     const imageRef = ref2(storage, memUrl);
-    uploadBytes(imageRef, memImage)
-      .then(() => {
-        console.log(imageRef);
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log("this error");
-        setMemStatus("Image Uploaded Unsuccessfully... try again. ");
-        setMemStatusStyles(`${styles.show}`);
-      });
+    uploadBytes(imageRef, memImage).catch((error) => {
+      console.log(error);
+      setMemStatus("Image Uploaded Unsuccessfully... try again. ");
+      setMemStatusStyles(`${styles.show}`);
+    });
   };
-
-  //todo get rid of prevent default but make sure still uploads
   function writeUserData(e: any) {
     e.preventDefault();
 
@@ -57,7 +49,6 @@ export default function Home() {
       url: memUrl,
     })
       .then(() => {
-        console.log("worked");
         setMemStatus("Image Uploaded Successfully");
         setMemStatusStyles(`${styles.show}`);
         uploadImage();
