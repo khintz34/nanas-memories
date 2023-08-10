@@ -22,6 +22,8 @@ export default function Home() {
     setMemImage(e.target.files[0]);
   };
 
+  //todo fix these erros
+
   const uploadImage = () => {
     const imageRef = ref2(storage, memUrl);
     uploadBytes(imageRef, memImage)
@@ -30,9 +32,11 @@ export default function Home() {
       })
       .catch((error) => {
         console.log(error);
+        console.log("this error");
       });
   };
 
+  //todo get rid of prevent default but make sure still uploads
   function writeUserData(e: any) {
     e.preventDefault();
 
@@ -59,12 +63,12 @@ export default function Home() {
       <h2 className={styles.h2}>Add a Memory</h2>
       <form action="" className={styles.form}>
         <div className={styles.inputContainer}>
-          <label htmlFor="memName">Memory Name</label>
+          <label htmlFor="memName">Memory Title</label>
           <input
             type="text"
             id="memName"
             onChange={(e) => setMemName(e.target.value)}
-            className={styles.input}
+            className={` ${styles.input} ${styles.textInput}`}
           />
         </div>
 
@@ -76,7 +80,7 @@ export default function Home() {
             type="text"
             id="memTags"
             onChange={(e) => setMemTags(e.target.value)}
-            className={styles.input}
+            className={` ${styles.input} ${styles.textInput}`}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -85,7 +89,7 @@ export default function Home() {
             type="text"
             id="memYear"
             onChange={(e) => setMemYear(e.target.value)}
-            className={styles.input}
+            className={` ${styles.input} ${styles.yearInput}`}
             defaultValue=""
           />
         </div>
@@ -93,7 +97,7 @@ export default function Home() {
           <label htmlFor="memDesc">Description</label>
           <textarea
             id="memDesc"
-            className={`${styles.textArea} ${styles.input}`}
+            className={`${styles.textArea} ${styles.input} ${styles.descInput}`}
             onChange={(e) => setMemDesc(e.target.value)}
           />
         </div>
@@ -101,13 +105,15 @@ export default function Home() {
           <label htmlFor="memImg">Image</label>
           <input type="file" id="memImg" onChange={(e) => handleImage(e)} />
         </div>
-        <button
-          type="submit"
-          onClick={(e) => writeUserData(e)}
-          className={styles.btn}
-        >
-          Upload Memory
-        </button>
+        <div className={styles.btnContainer}>
+          <button
+            type="submit"
+            onClick={(e) => writeUserData(e)}
+            className={styles.btn}
+          >
+            Add Memory
+          </button>
+        </div>
       </form>
     </main>
   );
