@@ -85,6 +85,7 @@ export default function Home() {
             className={` ${styles.input} ${styles.textInput}`}
             value={memName}
             onClick={() => setMemStatusStyles(`${styles.show}`)}
+            maxLength={30}
           />
         </div>
 
@@ -116,6 +117,7 @@ export default function Home() {
             className={` ${styles.input} ${styles.yearInput}`}
             value={memYear}
             onClick={() => setMemStatusStyles(`${styles.show}`)}
+            maxLength={4}
           />
         </div>
         <div className={styles.inputContainer}>

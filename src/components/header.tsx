@@ -5,8 +5,6 @@ import Link from "next/link";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavbarStore } from "@/stores/navbarStore";
 
-// todo transition X button
-
 const Header = () => {
   const navbarStatus = useNavbarStore((state) => state.navbarStatus);
   const changeStatus = useNavbarStore((state) => state.changeStatus);
