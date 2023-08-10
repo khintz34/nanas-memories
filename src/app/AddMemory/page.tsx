@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styles from "./page.module.scss";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ref as ref2, uploadBytes } from "firebase/storage";
 import { storage } from "../../assets/firebase/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
@@ -10,16 +10,22 @@ import { db } from "../../assets/firebase/firebase";
 import { JSDocNullableType, NumberLiteralType } from "typescript";
 
 export default function Home() {
-  const [memUrl, setMemUrl] = useState<string>();
-  const [memImage, setMemImage] = useState<any>(null);
-  const [memName, setMemName] = useState<string>();
-  const [memTags, setMemTags] = useState<string>();
-  const [memYear, setMemYear] = useState<string | null>(null);
-  const [memDesc, setMemDesc] = useState<string>();
+  const [memUrl, setMemUrl] = useState<string>("");
+  const [memImage, setMemImage] = useState<any>();
+  const [memName, setMemName] = useState<string>("");
+  const [memTags, setMemTags] = useState<string>("");
+  const [memYear, setMemYear] = useState<string>("");
+  const [memDesc, setMemDesc] = useState<string>("");
+  const [memStatus, setMemStatus] = useState<string>("");
+  const [memStatusStyles, setMemStatusStyles] = useState<string>(
+    `${styles.hide}`
+  );
+  const imgRef = useRef<any>(null);
 
   const handleImage = (e: any) => {
     setMemUrl(e.target.files[0].name);
     setMemImage(e.target.files[0]);
+    setMemStatusStyles(`${styles.hide}`);
   };
 
   //todo fix these erros
@@ -33,6 +39,8 @@ export default function Home() {
       .catch((error) => {
         console.log(error);
         console.log("this error");
+        setMemStatus("Image Uploaded Unsuccessfully... try again. ");
+        setMemStatusStyles(`${styles.show}`);
       });
   };
 
@@ -50,12 +58,24 @@ export default function Home() {
     })
       .then(() => {
         console.log("worked");
+        setMemStatus("Image Uploaded Successfully");
+        setMemStatusStyles(`${styles.show}`);
+        uploadImage();
+      })
+      .then(() => {
+        setMemDesc("");
+        setMemImage("");
+        setMemName("");
+        setMemTags("");
+        setMemUrl("");
+        setMemYear("");
+        imgRef.current.value = "";
       })
       .catch((error) => {
         console.log(error);
+        setMemStatus("Image Uploaded Unsuccessfully... try again. ");
+        setMemStatusStyles(`${styles.show}`);
       });
-
-    uploadImage();
   }
 
   return (
@@ -67,8 +87,12 @@ export default function Home() {
           <input
             type="text"
             id="memName"
-            onChange={(e) => setMemName(e.target.value)}
+            onChange={(e) => {
+              setMemName(e.target.value);
+              setMemStatusStyles(`${styles.hide}`);
+            }}
             className={` ${styles.input} ${styles.textInput}`}
+            value={memName}
           />
         </div>
 
@@ -79,8 +103,12 @@ export default function Home() {
           <input
             type="text"
             id="memTags"
-            onChange={(e) => setMemTags(e.target.value)}
+            onChange={(e) => {
+              setMemTags(e.target.value);
+              setMemStatusStyles(`${styles.hide}`);
+            }}
             className={` ${styles.input} ${styles.textInput}`}
+            value={memTags}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -88,9 +116,12 @@ export default function Home() {
           <input
             type="text"
             id="memYear"
-            onChange={(e) => setMemYear(e.target.value)}
+            onChange={(e) => {
+              setMemYear(e.target.value);
+              setMemStatusStyles(`${styles.hide}`);
+            }}
             className={` ${styles.input} ${styles.yearInput}`}
-            defaultValue=""
+            value={memYear}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -98,12 +129,21 @@ export default function Home() {
           <textarea
             id="memDesc"
             className={`${styles.textArea} ${styles.input} ${styles.descInput}`}
-            onChange={(e) => setMemDesc(e.target.value)}
+            onChange={(e) => {
+              setMemDesc(e.target.value);
+              setMemStatusStyles(`${styles.hide}`);
+            }}
+            value={memDesc}
           />
         </div>
         <div className={styles.inputContainer}>
           <label htmlFor="memImg">Image</label>
-          <input type="file" id="memImg" onChange={(e) => handleImage(e)} />
+          <input
+            type="file"
+            id="memImg"
+            onChange={(e) => handleImage(e)}
+            ref={imgRef}
+          />
         </div>
         <div className={styles.btnContainer}>
           <button
@@ -115,6 +155,7 @@ export default function Home() {
           </button>
         </div>
       </form>
+      <div className={memStatusStyles}>{memStatus}</div>
     </main>
   );
 }

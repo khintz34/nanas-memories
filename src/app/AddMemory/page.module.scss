@@ -67,6 +67,16 @@
   margin-top: 5vh;
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+  width: 100vw;
+  text-align: center;
+}
+
 @media (max-width: 600px) {
   .form {
     width: 95vw;
