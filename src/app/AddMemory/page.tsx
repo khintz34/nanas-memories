@@ -93,6 +93,7 @@ export default function Home() {
             }}
             className={` ${styles.input} ${styles.textInput}`}
             value={memName}
+            onClick={() => setMemStatusStyles(`${styles.show}`)}
           />
         </div>
 
@@ -109,6 +110,7 @@ export default function Home() {
             }}
             className={` ${styles.input} ${styles.textInput}`}
             value={memTags}
+            onClick={() => setMemStatusStyles(`${styles.show}`)}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -122,6 +124,7 @@ export default function Home() {
             }}
             className={` ${styles.input} ${styles.yearInput}`}
             value={memYear}
+            onClick={() => setMemStatusStyles(`${styles.show}`)}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -134,6 +137,7 @@ export default function Home() {
               setMemStatusStyles(`${styles.hide}`);
             }}
             value={memDesc}
+            onClick={() => setMemStatusStyles(`${styles.show}`)}
           />
         </div>
         <div className={styles.inputContainer}>
