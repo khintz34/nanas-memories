@@ -1,0 +1,13 @@
+.qContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  border: 2px solid var(--secondary-background);
+  width: 95vw;
+  padding: 1vh 2vw 2vh 2vw;
+}
+
+.question {
+  font-size: 2.7vh;
+  text-align: center;
+}

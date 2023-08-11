@@ -8,8 +8,6 @@ import { storage } from "../../assets/firebase/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
 import { db } from "../../assets/firebase/firebase";
 
-//todo add maxmimum character lengths
-
 export default function Home() {
   const [memUrl, setMemUrl] = useState<string>("");
   const [memImage, setMemImage] = useState<any>();
@@ -85,7 +83,7 @@ export default function Home() {
             className={` ${styles.input} ${styles.textInput}`}
             value={memName}
             onClick={() => setMemStatusStyles(`${styles.show}`)}
-            maxLength={30}
+            maxLength={25}
           />
         </div>
 
