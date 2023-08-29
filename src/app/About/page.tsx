@@ -37,6 +37,8 @@ export default function Home() {
         <Question question="Favorite movie?" answer="XXXX" />
         <Question question="Favorite type of music?" answer="XXXX" />
         <Question question="Favorite tv show?" answer="XXXX" />
+        <Question question="Where did you grow up?" answer="XXXX" />
+        <Question question="Best Memory?" answer="XXXX" />
       </div>
     </main>
   );

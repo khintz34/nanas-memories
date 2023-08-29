@@ -7,6 +7,15 @@ import { ref as ref2, uploadBytes } from "firebase/storage";
 import { storage } from "../../assets/firebase/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
 import { db } from "../../assets/firebase/firebase";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { useAuthStore } from "../../stores/authStore";
+
+// todo add auth --> it keeps refreshing and not signing in
 
 export default function Home() {
   const [memUrl, setMemUrl] = useState<string>("");
@@ -20,6 +29,8 @@ export default function Home() {
     `${styles.hide}`
   );
   const imgRef = useRef<any>(null);
+  const authStatus = useAuthStore((state) => state.authtatus);
+  const changeStatus = useAuthStore((state) => state.changeStatus);
 
   const handleImage = (e: any) => {
     setMemUrl(e.target.files[0].name);
@@ -66,6 +77,37 @@ export default function Home() {
         setMemStatusStyles(`${styles.show}`);
       });
   }
+
+  const signUserIn = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault;
+    console.log("clicked");
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    if (!authStatus) {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+          changeStatus(true);
+          console.log("true");
+          // ...
+          // closeMenu();
+        })
+        .catch((error) => {});
+    } else {
+      auth.signOut().then(
+        function () {
+          changeStatus(false);
+        },
+        function (error) {
+          console.error("Sign Out Error", error);
+        }
+      );
+    }
+  };
 
   return (
     <main className={styles.main}>
@@ -140,14 +182,21 @@ export default function Home() {
             ref={imgRef}
           />
         </div>
+        {/* if not signed in then Sign In Btn else Add Memory */}
         <div className={styles.btnContainer}>
-          <button
-            type="submit"
-            onClick={(e) => writeUserData(e)}
-            className={styles.btn}
-          >
-            Add Memory
-          </button>
+          {authStatus ? (
+            <button
+              type="submit"
+              onClick={(e) => writeUserData(e)}
+              className={styles.btn}
+            >
+              Add Memory
+            </button>
+          ) : (
+            <button onClick={(e) => signUserIn(e)} className={styles.btn}>
+              Sign In
+            </button>
+          )}
         </div>
       </form>
       <div className={memStatusStyles}>{memStatus}</div>
