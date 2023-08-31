@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styles from "./page.module.scss";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ref as ref2, uploadBytes } from "firebase/storage";
 import { storage } from "../../assets/firebase/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
@@ -18,6 +18,7 @@ import { useAuthStore } from "../../stores/authStore";
 // todo add auth --> it keeps refreshing and not signing in
 
 export default function Home() {
+  const [currentAuth, setCurrentAuth] = useState(false);
   const [memUrl, setMemUrl] = useState<string>("");
   const [memImage, setMemImage] = useState<any>();
   const [memName, setMemName] = useState<string>("");
@@ -80,7 +81,6 @@ export default function Home() {
 
   const signUserIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault;
-    console.log("clicked");
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     if (!authStatus) {
@@ -94,11 +94,11 @@ export default function Home() {
           // The signed-in user info.
           const user = result.user;
           changeStatus(true);
-          console.log("true");
-          // ...
-          // closeMenu();
+          setCurrentAuth(true);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       auth.signOut().then(
         function () {
@@ -111,97 +111,107 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    if (authStatus) {
+      setCurrentAuth(true);
+    }
+  }, []);
+
   return (
     <main className={styles.main}>
-      <h2 className={styles.h2}>Add a Memory</h2>
-      <form action="" className={styles.form}>
-        <div className={styles.inputContainer}>
-          <label htmlFor="memName">Memory Title</label>
-          <input
-            type="text"
-            id="memName"
-            onChange={(e) => {
-              setMemName(e.target.value);
-              setMemStatusStyles(`${styles.hide}`);
-            }}
-            className={` ${styles.input} ${styles.textInput}`}
-            value={memName}
-            onClick={() => setMemStatusStyles(`${styles.show}`)}
-            maxLength={25}
-          />
-        </div>
+      {currentAuth ? (
+        <div>
+          <h2 className={styles.h2}>Add a Memory</h2>
+          <form action="" className={styles.form}>
+            <div className={styles.inputContainer}>
+              <label htmlFor="memName">Memory Title</label>
+              <input
+                type="text"
+                id="memName"
+                onChange={(e) => {
+                  setMemName(e.target.value);
+                  setMemStatusStyles(`${styles.hide}`);
+                }}
+                className={` ${styles.input} ${styles.textInput}`}
+                value={memName}
+                onClick={() => setMemStatusStyles(`${styles.show}`)}
+                maxLength={25}
+              />
+            </div>
 
-        <div className={styles.inputContainer}>
-          <label htmlFor="memTags">
-            Who is in this memory? (Separate with commas)
-          </label>
-          <input
-            type="text"
-            id="memTags"
-            onChange={(e) => {
-              setMemTags(e.target.value);
-              setMemStatusStyles(`${styles.hide}`);
-            }}
-            className={` ${styles.input} ${styles.textInput}`}
-            value={memTags}
-            onClick={() => setMemStatusStyles(`${styles.show}`)}
-          />
+            <div className={styles.inputContainer}>
+              <label htmlFor="memTags">
+                Who is in this memory? (Separate with commas)
+              </label>
+              <input
+                type="text"
+                id="memTags"
+                onChange={(e) => {
+                  setMemTags(e.target.value);
+                  setMemStatusStyles(`${styles.hide}`);
+                }}
+                className={` ${styles.input} ${styles.textInput}`}
+                value={memTags}
+                onClick={() => setMemStatusStyles(`${styles.show}`)}
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <label htmlFor="memYear">Year (optional)</label>
+              <input
+                type="text"
+                id="memYear"
+                onChange={(e) => {
+                  setMemYear(e.target.value);
+                  setMemStatusStyles(`${styles.hide}`);
+                }}
+                className={` ${styles.input} ${styles.yearInput}`}
+                value={memYear}
+                onClick={() => setMemStatusStyles(`${styles.show}`)}
+                maxLength={4}
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <label htmlFor="memDesc">Description</label>
+              <textarea
+                id="memDesc"
+                className={`${styles.textArea} ${styles.input} ${styles.descInput}`}
+                onChange={(e) => {
+                  setMemDesc(e.target.value);
+                  setMemStatusStyles(`${styles.hide}`);
+                }}
+                value={memDesc}
+                onClick={() => setMemStatusStyles(`${styles.show}`)}
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <label htmlFor="memImg">Image</label>
+              <input
+                type="file"
+                id="memImg"
+                onChange={(e) => handleImage(e)}
+                ref={imgRef}
+              />
+            </div>
+            {/* if not signed in then Sign In Btn else Add Memory */}
+            <div className={styles.btnContainer}>
+              <button
+                type="submit"
+                onClick={(e) => writeUserData(e)}
+                className={styles.btn}
+              >
+                Add Memory
+              </button>
+            </div>
+          </form>
+          <div className={memStatusStyles}>{memStatus}</div>
         </div>
-        <div className={styles.inputContainer}>
-          <label htmlFor="memYear">Year (optional)</label>
-          <input
-            type="text"
-            id="memYear"
-            onChange={(e) => {
-              setMemYear(e.target.value);
-              setMemStatusStyles(`${styles.hide}`);
-            }}
-            className={` ${styles.input} ${styles.yearInput}`}
-            value={memYear}
-            onClick={() => setMemStatusStyles(`${styles.show}`)}
-            maxLength={4}
-          />
+      ) : (
+        <div>
+          <button onClick={(e) => signUserIn(e)} className={styles.signIn}>
+            Sign In
+          </button>
         </div>
-        <div className={styles.inputContainer}>
-          <label htmlFor="memDesc">Description</label>
-          <textarea
-            id="memDesc"
-            className={`${styles.textArea} ${styles.input} ${styles.descInput}`}
-            onChange={(e) => {
-              setMemDesc(e.target.value);
-              setMemStatusStyles(`${styles.hide}`);
-            }}
-            value={memDesc}
-            onClick={() => setMemStatusStyles(`${styles.show}`)}
-          />
-        </div>
-        <div className={styles.inputContainer}>
-          <label htmlFor="memImg">Image</label>
-          <input
-            type="file"
-            id="memImg"
-            onChange={(e) => handleImage(e)}
-            ref={imgRef}
-          />
-        </div>
-        {/* if not signed in then Sign In Btn else Add Memory */}
-        <div className={styles.btnContainer}>
-          {authStatus ? (
-            <button
-              type="submit"
-              onClick={(e) => writeUserData(e)}
-              className={styles.btn}
-            >
-              Add Memory
-            </button>
-          ) : (
-            <button onClick={(e) => signUserIn(e)} className={styles.btn}>
-              Sign In
-            </button>
-          )}
-        </div>
-      </form>
-      <div className={memStatusStyles}>{memStatus}</div>
+      )}
     </main>
   );
 }
