@@ -78,7 +78,7 @@ export default function Home() {
       });
   }
 
-  const signUserIn = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const signUserIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault;
     console.log("clicked");
     const provider = new GoogleAuthProvider();
@@ -88,7 +88,9 @@ export default function Home() {
         .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
+          if (credential !== null) {
+            const token = credential.accessToken;
+          }
           // The signed-in user info.
           const user = result.user;
           changeStatus(true);
