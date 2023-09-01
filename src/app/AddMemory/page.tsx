@@ -196,7 +196,6 @@ export default function Home() {
                 ref={imgRef}
               />
             </div>
-            {/* if not signed in then Sign In Btn else Add Memory */}
             <div className={styles.btnContainer}>
               <button
                 type="submit"
@@ -210,7 +209,11 @@ export default function Home() {
           <div className={memStatusStyles}>{memStatus}</div>
         </div>
       ) : (
-        <div>
+        <div className={styles.signInContainer}>
+          <div>
+            Before adding a memory of Nana, please sign in using a Gmail
+            account.{" "}
+          </div>
           <button onClick={(e) => signUserIn(e)} className={styles.signIn}>
             Sign In
           </button>

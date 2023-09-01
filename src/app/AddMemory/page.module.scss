@@ -79,6 +79,26 @@
 
 .signIn {
   color: red;
+  width: 20vw;
+  max-width: 150px;
+  height: 5vh;
+  border-radius: 20px;
+  border: none;
+  font-size: 2.3vh;
+}
+
+.signIn:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  background-color: var(--secondary-background);
+  color: white;
+}
+
+.signInContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10vh;
+  align-items: center;
 }
 
 @media (max-width: 600px) {
