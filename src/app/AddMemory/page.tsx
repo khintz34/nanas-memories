@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styles from "./page.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { ref as ref2, uploadBytes } from "firebase/storage";
 import { storage } from "../../assets/firebase/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
@@ -14,6 +14,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { useAuthStore } from "../../stores/authStore";
+import { AuthContext } from "@/contexts/authContext";
 
 // todo add auth --> it keeps refreshing and not signing in
 
@@ -32,6 +33,7 @@ export default function Home() {
   const imgRef = useRef<any>(null);
   const authStatus = useAuthStore((state) => state.authtatus);
   const changeStatus = useAuthStore((state) => state.changeStatus);
+  const { auth, setAuth } = useContext(AuthContext);
 
   const handleImage = (e: any) => {
     setMemUrl(e.target.files[0].name);
@@ -82,9 +84,9 @@ export default function Home() {
   const signUserIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault;
     const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    if (!authStatus) {
-      signInWithPopup(auth, provider)
+    const auth1 = getAuth();
+    if (!auth) {
+      signInWithPopup(auth1, provider)
         .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -95,14 +97,16 @@ export default function Home() {
           const user = result.user;
           changeStatus(true);
           setCurrentAuth(true);
+          setAuth(true);
         })
         .catch((error) => {
           console.log(error);
         });
     } else {
-      auth.signOut().then(
+      auth1.signOut().then(
         function () {
           changeStatus(false);
+          setAuth(false);
         },
         function (error) {
           console.error("Sign Out Error", error);
@@ -112,14 +116,14 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (authStatus) {
+    if (auth) {
       setCurrentAuth(true);
     }
   }, []);
 
   return (
     <main className={styles.main}>
-      {currentAuth ? (
+      {auth ? (
         <div>
           <h2 className={styles.h2}>Add a Memory</h2>
           <form action="" className={styles.form}>
