@@ -17,7 +17,7 @@ import {
 import { useAuthStore } from "../../stores/authStore";
 import { AuthContext } from "@/contexts/authContext";
 
-// todo add auth --> it keeps refreshing and not signing in
+// todo change validation so it validates whenever a field is changing
 
 export default function Home() {
   const [currentAuth, setCurrentAuth] = useState(false);
@@ -28,14 +28,29 @@ export default function Home() {
   const [memYear, setMemYear] = useState<string>("");
   const [memDesc, setMemDesc] = useState<string>("");
   const [memStatus, setMemStatus] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [signInError, setSignInError] = useState<boolean>(false);
+  const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
   const [memStatusStyles, setMemStatusStyles] = useState<string>(
     `${styles.hide}`
   );
   const imgRef = useRef<any>(null);
   const { auth, setAuth } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (
+      memName === undefined ||
+      memName === "" ||
+      memImage === undefined ||
+      memImage === "" ||
+      memDesc === undefined ||
+      memDesc === ""
+    ) {
+      setDisabledBtn(true);
+    } else {
+      setDisabledBtn(false);
+    }
+  }, [memDesc, memName, memImage]);
 
   const handleImage = (e: any) => {
     setMemUrl(e.target.files[0].name);
@@ -46,7 +61,6 @@ export default function Home() {
   const uploadImage = () => {
     const imageRef = ref2(storage, memUrl);
     uploadBytes(imageRef, memImage).catch((error) => {
-      console.log(error);
       setMemStatus("Image Uploaded Unsuccessfully... try again. ");
       setMemStatusStyles(`${styles.show}`);
     });
@@ -77,7 +91,6 @@ export default function Home() {
         imgRef.current.value = "";
       })
       .catch((error) => {
-        console.log(error);
         setMemStatus("Image Uploaded Unsuccessfully... try again. ");
         setMemStatusStyles(`${styles.show}`);
       });
@@ -85,7 +98,7 @@ export default function Home() {
 
   const signUserIn = () => {
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, "nana@gmail.com", password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
@@ -123,7 +136,6 @@ export default function Home() {
                 }}
                 className={` ${styles.input} ${styles.textInput}`}
                 value={memName}
-                onClick={() => setMemStatusStyles(`${styles.show}`)}
                 maxLength={25}
               />
             </div>
@@ -141,7 +153,6 @@ export default function Home() {
                 }}
                 className={` ${styles.input} ${styles.textInput}`}
                 value={memTags}
-                onClick={() => setMemStatusStyles(`${styles.show}`)}
               />
             </div>
             <div className={styles.inputContainer}>
@@ -155,7 +166,6 @@ export default function Home() {
                 }}
                 className={` ${styles.input} ${styles.yearInput}`}
                 value={memYear}
-                onClick={() => setMemStatusStyles(`${styles.show}`)}
                 maxLength={4}
               />
             </div>
@@ -169,7 +179,6 @@ export default function Home() {
                   setMemStatusStyles(`${styles.hide}`);
                 }}
                 value={memDesc}
-                onClick={() => setMemStatusStyles(`${styles.show}`)}
               />
             </div>
             <div className={styles.inputContainer}>
@@ -185,7 +194,10 @@ export default function Home() {
               <button
                 type="submit"
                 onClick={(e) => writeUserData(e)}
-                className={styles.btn}
+                className={
+                  disabledBtn ? `${styles.disabledBtn}` : `${styles.btn}`
+                }
+                disabled={disabledBtn}
               >
                 Add Memory
               </button>
@@ -196,22 +208,9 @@ export default function Home() {
       ) : (
         <div className={styles.signInContainer}>
           <div>
-            Before adding a memory of Nana, please sign in using the Nana gmail
-            account.{" "}
+            Before adding a memory of Nana, please enter sign in password.{" "}
           </div>
           <form className={styles.emailForm}>
-            <div className={styles.emailContainer}>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                className={` ${styles.input}`}
-                value={email}
-              />
-            </div>
             <div className={styles.emailContainer}>
               <label htmlFor="password">Password</label>
               <input
