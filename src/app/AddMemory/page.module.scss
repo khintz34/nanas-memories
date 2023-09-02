@@ -101,6 +101,28 @@
   align-items: center;
 }
 
+.emailContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5vw;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.emailForm {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.showError {
+  display: block;
+}
+
+.none {
+  visibility: hidden;
+}
+
 @media (max-width: 600px) {
   .form {
     width: 95vw;

@@ -12,6 +12,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useAuthStore } from "../../stores/authStore";
 import { AuthContext } from "@/contexts/authContext";
@@ -27,6 +28,9 @@ export default function Home() {
   const [memYear, setMemYear] = useState<string>("");
   const [memDesc, setMemDesc] = useState<string>("");
   const [memStatus, setMemStatus] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [signInError, setSignInError] = useState<boolean>(false);
   const [memStatusStyles, setMemStatusStyles] = useState<string>(
     `${styles.hide}`
   );
@@ -81,38 +85,53 @@ export default function Home() {
       });
   }
 
-  const signUserIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault;
-    const provider = new GoogleAuthProvider();
-    const auth1 = getAuth();
-    if (!auth) {
-      signInWithPopup(auth1, provider)
-        .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          if (credential !== null) {
-            const token = credential.accessToken;
-          }
-          // The signed-in user info.
-          const user = result.user;
-          changeStatus(true);
-          setCurrentAuth(true);
-          setAuth(true);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      auth1.signOut().then(
-        function () {
-          changeStatus(false);
-          setAuth(false);
-        },
-        function (error) {
-          console.error("Sign Out Error", error);
-        }
-      );
-    }
+  const signUserIn = () => {
+    // const provider = new GoogleAuthProvider();
+    // const auth1 = getAuth();
+    // if (!auth) {
+    //   signInWithPopup(auth1, provider)
+    //     .then((result) => {
+    //       // This gives you a Google Access Token. You can use it to access the Google API.
+    //       const credential = GoogleAuthProvider.credentialFromResult(result);
+    //       if (credential !== null) {
+    //         const token = credential.accessToken;
+    //       }
+    //       // The signed-in user info.
+    //       const user = result.user;
+    //       changeStatus(true);
+    //       setCurrentAuth(true);
+    //       setAuth(true);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // } else {
+    //   auth1.signOut().then(
+    //     function () {
+    //       changeStatus(false);
+    //       setAuth(false);
+    //     },
+    //     function (error) {
+    //       console.error("Sign Out Error", error);
+    //     }
+    //   );
+    // }
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        setAuth(true);
+        setSignInError(false);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("not a verified user");
+        setAuth(false);
+        setSignInError(true);
+      });
   };
 
   useEffect(() => {
@@ -211,10 +230,42 @@ export default function Home() {
       ) : (
         <div className={styles.signInContainer}>
           <div>
-            Before adding a memory of Nana, please sign in using a Gmail
+            Before adding a memory of Nana, please sign in using the Nana gmail
             account.{" "}
           </div>
-          <button onClick={(e) => signUserIn(e)} className={styles.signIn}>
+          <form className={styles.emailForm}>
+            <div className={styles.emailContainer}>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                className={` ${styles.input}`}
+                value={email}
+              />
+            </div>
+            <div className={styles.emailContainer}>
+              <label htmlFor="email">Password</label>
+              <input
+                type="password"
+                id="password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                className={` ${styles.input}`}
+                value={password}
+              />
+            </div>
+
+            <div
+              className={signInError ? `${styles.showError}` : `${styles.none}`}
+            >
+              Incorrect Username or Password. Try Again.
+            </div>
+          </form>
+          <button onClick={() => signUserIn()} className={styles.signIn}>
             Sign In
           </button>
         </div>
