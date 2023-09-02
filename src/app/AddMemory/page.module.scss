@@ -129,6 +129,8 @@
 
 .showError {
   display: block;
+  color: red;
+  font-style: italic;
 }
 
 .none {
@@ -149,5 +151,14 @@
     width: 95vw;
     display: block;
     padding: none;
+  }
+
+  .signInContainer {
+    gap: 5vh;
+  }
+
+  .signIn {
+    width: 33vw;
+    max-width: none;
   }
 }
