@@ -213,7 +213,7 @@ export default function Home() {
               />
             </div>
             <div className={styles.emailContainer}>
-              <label htmlFor="email">Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"
