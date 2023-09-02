@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef } from "react";
-import styles from "../styles/Header.module.css";
+import styles from "../styles/Header.module.scss";
 import Link from "next/link";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavbarStore } from "@/stores/navbarStore";
@@ -36,7 +36,7 @@ const Header = () => {
       </label>
       <div className={styles.sideNav}>
         <ul
-          className={`${styles.menuNav} ${
+          className={`${styles.menuNav}  ${
             navbarStatus === true ? `${styles.showMenu}` : `${styles.hideNav}`
           }`}
         >

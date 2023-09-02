@@ -35,8 +35,6 @@ export default function Home() {
     `${styles.hide}`
   );
   const imgRef = useRef<any>(null);
-  const authStatus = useAuthStore((state) => state.authtatus);
-  const changeStatus = useAuthStore((state) => state.changeStatus);
   const { auth, setAuth } = useContext(AuthContext);
 
   const handleImage = (e: any) => {
