@@ -13,7 +13,7 @@ export default function Memory(props: any) {
           src={props.pic}
           alt={props.desciption}
         /> */}
-        <img src={props.pic} />
+        <img src={props.pic} alt={props.title} />
       </div>
       <div className={`${styles.divMain} ${styles.info}`}>
         {props.year === "" ? (
