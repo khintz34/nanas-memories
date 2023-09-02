@@ -9,8 +9,19 @@
   gap: 5vh;
 }
 
+.addContainer {
+  border: 2px solid red;
+  width: 40vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 3vh 2vw;
+  border-radius: 25px;
+}
+
 .h2 {
   font-size: 2.9vh;
+  margin-bottom: 2vh;
 }
 
 .inputContainer {
@@ -62,9 +73,10 @@
 }
 
 .btnContainer {
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
   margin-top: 5vh;
+  // width: auto;
 }
 
 .hide {
@@ -130,5 +142,12 @@
 
   .btn {
     width: 40vw;
+  }
+
+  .addContainer {
+    border: none;
+    width: 95vw;
+    display: block;
+    padding: none;
   }
 }

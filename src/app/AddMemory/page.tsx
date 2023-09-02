@@ -86,36 +86,6 @@ export default function Home() {
   }
 
   const signUserIn = () => {
-    // const provider = new GoogleAuthProvider();
-    // const auth1 = getAuth();
-    // if (!auth) {
-    //   signInWithPopup(auth1, provider)
-    //     .then((result) => {
-    //       // This gives you a Google Access Token. You can use it to access the Google API.
-    //       const credential = GoogleAuthProvider.credentialFromResult(result);
-    //       if (credential !== null) {
-    //         const token = credential.accessToken;
-    //       }
-    //       // The signed-in user info.
-    //       const user = result.user;
-    //       changeStatus(true);
-    //       setCurrentAuth(true);
-    //       setAuth(true);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   auth1.signOut().then(
-    //     function () {
-    //       changeStatus(false);
-    //       setAuth(false);
-    //     },
-    //     function (error) {
-    //       console.error("Sign Out Error", error);
-    //     }
-    //   );
-    // }
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -123,12 +93,10 @@ export default function Home() {
         const user = userCredential.user;
         setAuth(true);
         setSignInError(false);
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log("not a verified user");
         setAuth(false);
         setSignInError(true);
       });
@@ -143,7 +111,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {auth ? (
-        <div>
+        <div className={styles.addContainer}>
           <h2 className={styles.h2}>Add a Memory</h2>
           <form action="" className={styles.form}>
             <div className={styles.inputContainer}>
