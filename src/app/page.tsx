@@ -10,9 +10,11 @@ import { useState, useEffect } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 //todo fix spacing on images (Image component) instead of img
+// todo create a filter function
 
 export default function Home() {
   const [memoryList, setMemoryList] = useState<Array<memObj>>();
+  const [tags, setTags] = useState<Array<string>>([]);
 
   useEffect(() => {
     getUserData();
@@ -39,6 +41,8 @@ export default function Home() {
           const storage = getStorage();
           const specRef = ref(storage, obj.url);
 
+          //todo fix this
+
           const fetchData = async () => {
             const result = await getDownloadURL(specRef);
             obj.image = result;
@@ -53,10 +57,34 @@ export default function Home() {
     );
 
     function addData(obj: memObj) {
+      if (obj.tags.length > 0) {
+        createTagsList(obj.tags);
+      }
       displayArray.push(obj);
       setMemoryList([...displayArray]);
     }
+
+    //todo fix this to add to Tags when there is a new value
+
+    function createTagsList(list: any) {
+      let beginList = list.split(",");
+      console.log(beginList);
+      let holding = [...tags];
+      if (beginList.length !== 0) {
+        beginList.map((val: string, index: number) => {
+          if (!tags.includes(val)) {
+            holding.push(val);
+          }
+        });
+      }
+      setTags(holding);
+    }
   }
+
+  useEffect(() => {
+    console.log("useEffect");
+    console.log(tags);
+  }, [tags]);
 
   return (
     <main className={styles.main}>

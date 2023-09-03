@@ -17,8 +17,6 @@ import {
 import { useAuthStore } from "../../stores/authStore";
 import { AuthContext } from "@/contexts/authContext";
 
-// todo change validation so it validates whenever a field is changing
-
 export default function Home() {
   const [currentAuth, setCurrentAuth] = useState(false);
   const [memUrl, setMemUrl] = useState<string>("");
