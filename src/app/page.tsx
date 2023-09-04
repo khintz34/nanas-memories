@@ -15,6 +15,7 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 export default function Home() {
   const [memoryList, setMemoryList] = useState<Array<memObj>>();
   const [tags, setTags] = useState<Array<string>>([]);
+  const location: string = "_location";
 
   useEffect(() => {
     getUserData();
@@ -40,6 +41,7 @@ export default function Home() {
           };
 
           const storage = getStorage();
+
           const specRef = ref(storage, obj.url);
 
           //todo fix this
@@ -50,7 +52,7 @@ export default function Home() {
             addData(obj);
           };
 
-          if (!specRef["_location"].isRoot) fetchData();
+          if (obj.url !== undefined) fetchData();
         });
       },
       {
