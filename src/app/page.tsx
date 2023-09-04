@@ -21,6 +21,7 @@ export default function Home() {
   }, []);
 
   async function getUserData() {
+    let holdingArray: Array<string> = [];
     const boardRef = databaseRef(db, "Memories/");
     let displayArray: Array<memObj> = [];
     onValue(
@@ -48,7 +49,8 @@ export default function Home() {
             obj.image = result;
             addData(obj);
           };
-          fetchData();
+
+          if (!specRef["_location"].isRoot) fetchData();
         });
       },
       {
@@ -64,27 +66,31 @@ export default function Home() {
       setMemoryList([...displayArray]);
     }
 
-    //todo fix this to add to Tags when there is a new value
-
     function createTagsList(list: any) {
       let beginList = list.split(",");
-      console.log(beginList);
-      let holding = [...tags];
       if (beginList.length !== 0) {
         beginList.map((val: string, index: number) => {
-          if (!tags.includes(val)) {
-            holding.push(val);
+          if (!holdingArray.includes(val)) {
+            if (val !== " ") {
+              if (val === "Nana" || val === "nana") {
+                if (!holdingArray.includes("Lucille"))
+                  holdingArray.push("Lucille");
+              } else {
+                holdingArray.push(val);
+              }
+            }
           }
         });
       }
-      setTags(holding);
+      const newArray = [...holdingArray];
+      setTags(newArray);
     }
   }
 
-  useEffect(() => {
-    console.log("useEffect");
-    console.log(tags);
-  }, [tags]);
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   console.log(tags);
+  // }, [tags]);
 
   return (
     <main className={styles.main}>
