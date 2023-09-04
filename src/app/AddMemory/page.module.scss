@@ -147,6 +147,12 @@
   padding: 1vh;
 }
 
+.select {
+  position: absolute;
+  right: 15vw;
+  top: 10vh;
+}
+
 @media (max-width: 600px) {
   .form {
     width: 95vw;

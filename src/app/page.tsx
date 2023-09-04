@@ -41,10 +41,7 @@ export default function Home() {
           };
 
           const storage = getStorage();
-
           const specRef = ref(storage, obj.url);
-
-          //todo fix this
 
           const fetchData = async () => {
             const result = await getDownloadURL(specRef);
@@ -89,26 +86,33 @@ export default function Home() {
     }
   }
 
-  // useEffect(() => {
-  //   console.log("useEffect");
-  //   console.log(tags);
-  // }, [tags]);
-
   return (
     <main className={styles.main}>
       {typeof memoryList !== "undefined" ? (
-        memoryList.map((val, index) => {
-          return (
-            <Memory
-              key={val.title}
-              pic={val.image}
-              description={val.description}
-              title={val.title}
-              year={val.year}
-              tags={val.tags}
-            />
-          );
-        })
+        <div>
+          <div className={styles.select}>
+            <label htmlFor="person-select">Filter By Person</label>
+            <select name="person-select" id="person-select">
+              <option value="--Please Choose An Option--"></option>
+
+              {tags.map((val, index) => {
+                return <option key={`${val}-${index}`}>{val}</option>;
+              })}
+            </select>
+          </div>
+          {memoryList.map((val, index) => {
+            return (
+              <Memory
+                key={val.title}
+                pic={val.image}
+                description={val.description}
+                title={val.title}
+                year={val.year}
+                tags={val.tags}
+              />
+            );
+          })}
+        </div>
       ) : (
         <div className={styles.center}>
           <div className={styles.wave}></div>
