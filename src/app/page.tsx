@@ -90,10 +90,16 @@ export default function Home() {
     <main className={styles.main}>
       {typeof memoryList !== "undefined" ? (
         <div>
-          <div className={styles.select}>
+          <div>
             <label htmlFor="person-select">Filter By Person</label>
-            <select name="person-select" id="person-select">
-              <option value="--Please Choose An Option--"></option>
+            <select
+              name="person-select"
+              id="person-select"
+              className={styles.select}
+            >
+              <option value="--Please Choose An Option--">
+                Please Choose An Option
+              </option>
 
               {tags.map((val, index) => {
                 return <option key={`${val}-${index}`}>{val}</option>;
