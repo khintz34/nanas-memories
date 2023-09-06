@@ -90,21 +90,21 @@ export default function Home() {
     <main className={styles.main}>
       {typeof memoryList !== "undefined" ? (
         <div>
-          <div>
-            <label htmlFor="person-select">Filter By Person</label>
-            <select
-              name="person-select"
-              id="person-select"
-              className={styles.select}
-            >
-              <option value="--Please Choose An Option--">
-                Please Choose An Option
-              </option>
+          <div className={styles.selectContainer}>
+            <div className={styles.selectDiv}>
+              <label htmlFor="person-select">Filter By Person</label>
+              <select
+                name="person-select"
+                id="person-select"
+                className={styles.select}
+              >
+                <option value="">ALL</option>
 
-              {tags.map((val, index) => {
-                return <option key={`${val}-${index}`}>{val}</option>;
-              })}
-            </select>
+                {tags.map((val, index) => {
+                  return <option key={`${val}-${index}`}>{val}</option>;
+                })}
+              </select>
+            </div>
           </div>
           {memoryList.map((val, index) => {
             return (
