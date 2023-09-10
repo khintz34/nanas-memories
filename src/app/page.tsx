@@ -8,6 +8,7 @@ import { ref as databaseRef, onValue } from "firebase/database";
 import { db } from "../assets/firebase/firebase";
 import { useState, useEffect } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { StringDecoder } from "string_decoder";
 
 //todo fix spacing on images (Image component) instead of img
 // todo create a filter function
@@ -18,10 +19,10 @@ export default function Home() {
   const location: string = "_location";
 
   useEffect(() => {
-    getUserData();
+    getUserData("");
   }, []);
 
-  async function getUserData() {
+  async function getUserData(tag: string) {
     let holdingArray: Array<string> = [];
     const boardRef = databaseRef(db, "Memories/");
     let displayArray: Array<memObj> = [];
@@ -46,7 +47,7 @@ export default function Home() {
           const fetchData = async () => {
             const result = await getDownloadURL(specRef);
             obj.image = result;
-            addData(obj);
+            addData(obj, tag);
           };
 
           if (obj.url !== undefined) fetchData();
@@ -57,12 +58,20 @@ export default function Home() {
       }
     );
 
-    function addData(obj: memObj) {
+    function addData(obj: memObj, tag: string) {
       if (obj.tags.length > 0) {
         createTagsList(obj.tags);
       }
-      displayArray.push(obj);
-      setMemoryList([...displayArray]);
+
+      if (tag === "") {
+        displayArray.push(obj);
+        setMemoryList([...displayArray]);
+      } else {
+        if (updateDisplayArray(tag, obj, obj.tags)) {
+          displayArray.push(obj);
+          setMemoryList([...displayArray]);
+        }
+      }
     }
 
     function createTagsList(list: any) {
@@ -84,6 +93,19 @@ export default function Home() {
       const newArray = [...holdingArray];
       setTags(newArray);
     }
+
+    function updateDisplayArray(tag: string, obj: memObj, list: any) {
+      let found = false;
+      let beginList: any = list.split(", ");
+      if (beginList.length !== 0) {
+        beginList.map((val: string, index: number) => {
+          if (val === tag) {
+            found = true;
+          }
+        });
+      }
+      return found;
+    }
   }
 
   return (
@@ -97,6 +119,10 @@ export default function Home() {
                 name="person-select"
                 id="person-select"
                 className={styles.select}
+                onChange={(e) => {
+                  getUserData(e.target.value);
+                  e.target.setAttribute("selected", "true");
+                }}
               >
                 <option value="">ALL</option>
 
