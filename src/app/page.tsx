@@ -17,6 +17,7 @@ export default function Home() {
   const [memoryList, setMemoryList] = useState<Array<memObj>>();
   const [tags, setTags] = useState<Array<string>>([]);
   const location: string = "_location";
+  const [selectedValue, setSelectedValue] = useState<string>("");
 
   useEffect(() => {
     getUserData("");
@@ -121,8 +122,10 @@ export default function Home() {
                 className={styles.select}
                 onChange={(e) => {
                   getUserData(e.target.value);
-                  e.target.setAttribute("selected", "true");
+                  // e.target.setAttribute("selected", "selected");
+                  setSelectedValue(e.target.value);
                 }}
+                value={selectedValue}
               >
                 <option value="">ALL</option>
 
