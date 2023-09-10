@@ -66,7 +66,7 @@ export default function Home() {
     }
 
     function createTagsList(list: any) {
-      let beginList = list.split(",");
+      let beginList = list.split(", ");
       if (beginList.length !== 0) {
         beginList.map((val: string, index: number) => {
           if (!holdingArray.includes(val)) {
