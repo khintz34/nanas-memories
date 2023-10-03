@@ -13,7 +13,12 @@
   display: flex;
   justify-content: flex-start;
   overflow: hidden;
-  object-fit: fill;
+  // object-fit: contain;
+  // position: relative;
+}
+
+.pic {
+  // max-width: 100%;
 }
 
 .divMain {

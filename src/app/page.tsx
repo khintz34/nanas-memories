@@ -11,7 +11,6 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { StringDecoder } from "string_decoder";
 
 //todo fix spacing on images (Image component) instead of img
-// todo create a filter function
 
 export default function Home() {
   const [memoryList, setMemoryList] = useState<Array<memObj>>();
@@ -122,7 +121,6 @@ export default function Home() {
                 className={styles.select}
                 onChange={(e) => {
                   getUserData(e.target.value);
-                  // e.target.setAttribute("selected", "selected");
                   setSelectedValue(e.target.value);
                 }}
                 value={selectedValue}
