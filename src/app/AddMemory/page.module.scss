@@ -112,6 +112,7 @@
   flex-direction: column;
   gap: 10vh;
   align-items: center;
+  margin-top: 5vh;
 }
 
 .emailContainer {
@@ -147,7 +148,7 @@
   padding: 1vh;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   .form {
     width: 95vw;
   }

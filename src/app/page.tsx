@@ -111,7 +111,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {typeof memoryList !== "undefined" ? (
-        <div>
+        <div className={styles.paddingTop}>
           <div className={styles.selectContainer}>
             <div className={styles.selectDiv}>
               <label htmlFor="person-select">Filter By Person</label>

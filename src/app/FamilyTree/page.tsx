@@ -24,7 +24,7 @@ export default function Home() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (window.innerWidth > 700) {
+      if (window.innerWidth > 1000) {
         setMobile(false);
       } else {
         setMobile(true);

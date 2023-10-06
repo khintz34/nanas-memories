@@ -22,9 +22,6 @@
 }
 
 .selectDiv {
-  // position: fixed;
-  // top: 11vh;
-  // right: 5vw;
   display: flex;
   flex-direction: row;
   gap: 1vw;
@@ -34,6 +31,10 @@
 
 .select {
   color: black;
+}
+
+.paddingTop {
+  padding-top: 2vh;
 }
 
 .loading {
