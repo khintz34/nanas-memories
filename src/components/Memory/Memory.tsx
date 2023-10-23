@@ -8,8 +8,6 @@ export default function Memory(props: any) {
   //   return `https://example.com/${src}?w=${width}&q=${quality || 75}`;
   // };
 
-  console.log(props.pic);
-
   return (
     <main className={styles.main}>
       <div className={styles.imageContainer}>

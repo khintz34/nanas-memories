@@ -16,6 +16,7 @@ import {
 } from "firebase/auth";
 import { useAuthStore } from "../../stores/authStore";
 import { AuthContext } from "@/contexts/authContext";
+import { STRING_LITERAL_DROP_BUNDLE } from "next/dist/shared/lib/constants";
 
 export default function Home() {
   const [currentAuth, setCurrentAuth] = useState(false);
@@ -51,13 +52,19 @@ export default function Home() {
   }, [memDesc, memName, memImage]);
 
   const handleImage = (e: any) => {
+    // let test = e.target.files[0].name.split(".");
+    // console.log(test);
+    // let lastElement = test[test.length - 1];
+    // let newUrl = memName.replace(/\s/g, "") + "." + lastElement;
+    // console.log(newUrl);
     setMemUrl(e.target.files[0].name);
     setMemImage(e.target.files[0]);
     setMemStatusStyles(`${styles.hide}`);
   };
 
-  const uploadImage = () => {
-    const imageRef = ref2(storage, memUrl);
+  const uploadImage = (newUrl: string) => {
+    //! this is where I need to edit this.
+    const imageRef = ref2(storage, newUrl);
     uploadBytes(imageRef, memImage).catch((error) => {
       setMemStatus("Image Uploaded Unsuccessfully... try again. ");
       setMemStatusStyles(`${styles.show}`);
@@ -66,18 +73,30 @@ export default function Home() {
   function writeUserData(e: any) {
     e.preventDefault();
 
+    console.log(memUrl.split(".")[0]);
+    let newUrl: string;
+
+    if (memUrl.split(".")[0] === "image") {
+      let urlArr = memUrl.split(".");
+      let lastElement = urlArr[urlArr.length - 1];
+      newUrl = memName.replace(/\s/g, "") + "." + lastElement;
+      console.log(newUrl);
+    } else {
+      newUrl = memUrl;
+    }
+
     const database = getDatabase();
     set(ref(database, "Memories/" + memName), {
       title: memName,
       description: memDesc,
       year: memYear,
       tags: memTags,
-      url: memUrl,
+      url: newUrl,
     })
       .then(() => {
         setMemStatus("Image Uploaded Successfully");
         setMemStatusStyles(`${styles.show}`);
-        uploadImage();
+        uploadImage(newUrl);
       })
       .then(() => {
         setMemDesc("");
